@@ -5,13 +5,13 @@
     <title>Money Cars</title>
     <meta charset="UTF-8">
     <meta name='viewport' content='initial-scale=1, maximum-scale=1, user-scalable=0'>
-    <link rel="icon" type="image/x-icon" href="/pics/icons/favicon.ico">
+    
     <script src="experiments-platform.js"></script>
     <link rel="manifest" href="manifest.json">
-    <script src='jquery.min.js'></script>
-    <link href='addtohomescreen/style/style.css' rel='stylesheet'>
 
+    <!--<script src="js/NoSleep.js"></script> #I deactivated it for now-->
 
+    <link rel="stylesheet" type="text/css" href="style.css">
 
     <!--
             this is how to create the icon pack and manifest
@@ -37,9 +37,7 @@
     <link rel="apple-touch-icon" sizes="120x120" href="pics/icons/apple-icon-120x120.png">
     <link rel="apple-touch-icon" sizes="144x144" href="pics/icons/apple-icon-144x144.png">
     <link rel="apple-touch-icon" sizes="152x152" href="pics/icons/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="167x167" href="pics/icons/apple-icon-167x167.png">
     <link rel="apple-touch-icon" sizes="180x180" href="pics/icons/apple-icon-180x180.png">
-    <link rel="apple-touch-icon" href="pics/icons/apple-icon.png">
     <link rel="icon" type="image/png" sizes="192x192" href="pics/icons/android-icon-192x192.png">
     <link rel="icon" type="image/png" sizes="32x32" href="pics/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="pics/icons/favicon-96x96.png">
@@ -51,177 +49,55 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="Money Cars">
-    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="App">
     <meta name="apple-mobile-web-app-status-bar" content="#aa7700">
     <meta name="theme-color" content="black">
 
-    <link rel="apple-touch-startup-image" href="pics/Instructions/1.png">
-
-    <div>
-        <img id="installIns" ; src="pics/Instructions/installIns.png">
-        <img src="pics/Instructions/installation_guide_Android.png" ; id="installAndroid">
-        <img src="pics/Instructions/installation_guide_iOS.png" ; id="installIOS">
-    </div>
-
-    <div>
-        <button type="button" id="notIphoneYellow"><img src="pics/Instructions/notIphoneYellow.png" width="100%"
-                height="100%" /></button>
-        <button type="button" id="iphoneYellow"><img src="pics/Instructions/IphoneYellow.png" width="100%"
-                height="100%" /></button>
-
-    </div>
 
     <script>
-        document.getElementById("notIphoneYellow").addEventListener("click", function () {
-            document.getElementById("installAndroid").style.display = "inline";
-            document.getElementById("notIphoneYellow").style.display = "none";
-            document.getElementById("iphoneYellow").style.display = "none";
-        });
-        document.getElementById("iphoneYellow").addEventListener("click", function () {
-            document.getElementById("installIOS").style.display = "inline";
-            document.getElementById("notIphoneYellow").style.display = "none";
-            document.getElementById("iphoneYellow").style.display = "none";
-        });
+        let installButton = document.createElement('button');
+
+        // // check app loading after the page is loaded
+        // checkIfAppStartedRunning = setTimeout(() => {
+        //     console.log('app not loading... RELOADING page')
+        //     location.reload()
+        // }, 7000)
     </script>
-
-    <script src="addtohomescreen/src/addtohomescreen.js"></script>
-
-
 </head>
 
 <body>
-
-    <body id="body-element" class="bgInstallPage">
-        <!-- App installation guide -->
-        <!-- <img id="installation_guide" src="" />
-        <div id="deviceDoesNotFit" style="width: 90%;" class="centered error_message hidden">
-            <h2>יש להכנס לקישור זה מסמארטפון<br>(אייפון או אנדרואיד).</h2>
-        </div> -->
-
-        <!-- Loading Screen -->
-        <!-- <div id="app_will_load_soon" class="centered appIsLoading">
-            <h1>...טוען</h1>
-        </div> -->
-
-        <!-- iframe to run the app in -->
-        <iframe id="iframe-element" src="." class="hidden"
-            style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
-            Your browser doesn't support iframes
-        </iframe>
-
-    </body>
-
+    <p> can you see me?</p>
+    <!-- id="background" class="bgApp" onload="runApp()"> -->
     <script>
+        let prompt;
+        window.addEventListener('beforeinstallprompt', function (e) {
+            // Prevent the mini-infobar from appearing on mobile
+            e.preventDefault();
+            // Stash the event so it can be triggered later.
+            prompt = e;
+        });
 
-        if (
-            (("standalone" in window.navigator) && !window.navigator.standalone) // for ios
-            ||
-            (!window.matchMedia('(disply-mode: standalone)').matches) //android
-        ) {
-            addToHomescreen()
-        }
-
-        // check if implemented as PWA:
-        const ifPWAitr = setInterval(() => {
-            var isInWebAppiOS = window.navigator.standalone === true;
-            var isInWebAppChrome =
-                window.matchMedia("(display-mode: fullscreen)").matches ||
-                window.matchMedia("(display-mode: standalone)").matches ||
-                window.matchMedia("(display-mode: minimal-ui)").matches
-
-            // if app PWA:
-            if (isInWebAppiOS || isInWebAppChrome) {
-                // first, prevent multiple reloads:
-                document.getElementById('iframe-element').onload = ''
-
-                // load index.html with the relevant info (for the iframe):
-                document.getElementById("installAndroid").style.display = "none";
-                document.getElementById("installIns").style.display = "none";
-                document.getElementById("installIOS").style.display = "none";
-                document.getElementById("iphoneYellow").style.display = "none";
-                document.getElementById("notIphoneYellow").style.display = "none";
-                clearInterval(ifPWAitr);
-                document.getElementById('iframe-element').src = "instructions/instructions.html";
-
-                // show the app (which run through the iframe element):
-                document.getElementById('iframe-element').classList.remove('hidden');
-                document.getElementById('app_will_load_soon').classList.add('hidden');
-                document.getElementById('loading_animation').classList.add('hidden');
-
-
-
-
-                // if app isn't PWA show specific installation instructions:
-            } else {
-                document.getElementById('app_will_load_soon').classList.add('hidden');
-                document.getElementById('loading_animation').classList.add('hidden');
-
-                // Show installation instructions according to the device type:
-                // var mobileOS = getMobileOperatingSystem();
-                // if (mobileOS === 'iOS' || mobileOS === 'Android') {
-                //     document.getElementById('installation_guide').setAttribute('src', 'pics/instructions/installation_guide_' + mobileOS + '.png')
-                // } else {
-                //     document.getElementById('deviceDoesNotFit').style.display = "none";;
-                // }
-            }
-        }, 1000);
-
-
-        // // get mobile func OS function:
-        // function getMobileOperatingSystem() { // taken by Rani from https://stackoverflow.com/questions/21741841/detecting-ios-android-operating-system
-        //     //     var userAgent = navigator.userAgent || navigator.vendor || window.opera;
-        //     // Windows Phone must come first because its UA also contains "Android"
-        //     if ((/Mobi/.test(navigator.userAgent)) || (/Mobi|Android/i.test(navigator.userAgent))) {
-        //         // mobile!
-        //         if (/windows phone/i.test(userAgent)) {
-        //             return "Windows Phone";
-        //         }
-        //         if (/android/i.test(userAgent)) {
-        //             return "Android";
-        //         }
-        //         // iOS detection from: http://stackoverflow.com/a/9039885/177710
-        //         if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-        //             return "iOS";
-        //         }
-        //         return "unknown";
-        //     }
-        // }
+        installButton.addEventListener('click', function () {
+            prompt.prompt();
+        })
     </script>
 
-
-    <!-- MY STUFF-->
     <script>
-    //     let prompt;
-    //     window.addEventListener('beforeinstallprompt', function (e) {
-    //         // Prevent the mini-infobar from appearing on mobile
-    //         e.preventDefault();
-    //         // Stash the event so it can be triggered later.
-    //         prompt = e;
-    //     });
+        let installed = false;
+        installButton.addEventListener('click', async function () {
+            prompt.prompt();
+            let result = await that.prompt.userChoice;
+            if (result && result.outcome === 'accepted') {
+                installed = true;
+                window.location.href = 'instructions/instructions.html';
 
-    //     installButton.addEventListener('click', function () {
-    //         prompt.prompt();
-    //     })
-    // </script>
+            }
+        })
 
-    <script>
-    //     let installed = false;
-    //     installButton.addEventListener('click', async function () {
-    //         prompt.prompt();
-    //         let result = await that.prompt.userChoice;
-    //         if (result && result.outcome === 'accepted') {
-    //             installed = true;
-    //             onMyFrameLoad();
-    //             // window.location.href = 'instructions/instructions.html';
-
-    //         }
-    //     })
-
-    //     window.addEventListener('appinstalled', async function (e) {
-    //         installButton.style.display = "none";
-    //     });
-    // </script>
+        window.addEventListener('appinstalled', async function (e) {
+            installButton.style.display = "none";
+        });
+    </script>
 
 
     <!-- Service Worker -->
@@ -254,7 +130,29 @@
             console.log('app not loading... RELOADING page')
         }
     </script>
+    <!-- Loading Screen -->
+    <!-- <div id="app_will_load_soon" class="centered appIsLoading">
+        <h1>...טוען</h1>
+    </div>
+    <div id="loading_animation">
+        <div class="lds-ellipsis">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
 
+    App installation guide
+    <img id="installation_guide" />
+    <div id="installationProblem" style="width: 90%; background-color: #666666ff; z-index:999;"
+        class="centered error_message hidden">
+        <h2 id='installationProblemMessage'></h2>
+    </div>
+
+
+
+    </script> -->
 
 
 </body>

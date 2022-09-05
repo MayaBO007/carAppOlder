@@ -784,7 +784,7 @@
 
 }
 
-#secCountdown {
+#secondCountdown {
 
     position: absolute;
     left: 17%;
@@ -812,20 +812,6 @@
 }
 
 #horizontal {
-    position: absolute;
-    left: 5%;
-    top: 5%;
-    width: 90%;
-    height: 90%;
-    border: none;
-    color: none;
-    background-color: transparent;
-    display: none;
-    z-index: +3;
-}
-
-#installation_guide {
-
     position: absolute;
     left: 5%;
     top: 5%;
