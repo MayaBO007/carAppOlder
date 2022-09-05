@@ -5,9 +5,8 @@
     <title>Money Cars</title>
     <meta charset="UTF-8">
     <meta name='viewport' content='initial-scale=1, maximum-scale=1, user-scalable=0'>
-    
     <script src="experiments-platform.js"></script>
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="appStuff/manifest.json" />
 
     <!--<script src="js/NoSleep.js"></script> #I deactivated it for now-->
 
@@ -23,84 +22,64 @@
             this is how to check if app is standalone:
             https://stackoverflow.com/questions/41742390/javascript-to-check-if-pwa-or-mobile-web
          -->
-
-    <!--
-    pwa stuff-
-    https://javascript.plainenglish.io/creating-a-browser-agnostic-pwa-install-button-41039f312fbe
-    https://www.geeksforgeeks.org/making-a-simple-pwa-under-5-minutes/
--->
-    <link rel="apple-touch-icon" sizes="57x57" href="pics/icons/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="pics/icons/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="pics/icons/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="pics/icons/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="pics/icons/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="pics/icons/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="pics/icons/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="pics/icons/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="pics/icons/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="pics/icons/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="pics/icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="pics/icons/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="pics/icons/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="icons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="icons/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="icons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="icons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="icons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="icons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="icons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="icons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="icons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+    <link rel="manifest" id="manifest-placeholder">
     <meta name="msapplication-TileColor" content="#000000">
-    <meta name="msapplication-TileImage" content="pics/icons/ms-icon-144x144.png">
+    <meta name="msapplication-TileImage" content="icons/ms-icon-144x144.png">
     <meta name="theme-color" content="#000000">
 
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="App">
-    <meta name="apple-mobile-web-app-status-bar" content="#aa7700">
-    <meta name="theme-color" content="black">
 
 
     <script>
-        let installButton = document.createElement('button');
-
-        // // check app loading after the page is loaded
-        // checkIfAppStartedRunning = setTimeout(() => {
-        //     console.log('app not loading... RELOADING page')
-        //     location.reload()
-        // }, 7000)
+        // check app loading after the page is loaded
+        checkIfAppStartedRunning = setTimeout(() => {
+            console.log('app not loading... RELOADING page')
+            location.reload()
+        }, 7000)
     </script>
+    <script src="appStuff/app.js"></script>
 </head>
 
-<body>
-    <p> can you see me?</p>
-    <!-- id="background" class="bgApp" onload="runApp()"> -->
-    <script>
-        let prompt;
-        window.addEventListener('beforeinstallprompt', function (e) {
-            // Prevent the mini-infobar from appearing on mobile
-            e.preventDefault();
-            // Stash the event so it can be triggered later.
-            prompt = e;
-        });
+<body id="background" class="bgApp" onload="runApp()">
+    <!-- Loading Screen -->
+    <div id="app_will_load_soon" class="centered appIsLoading">
+        <h1>...טוען</h1>
+    </div>
+    <div id="loading_animation">
+        <div class="lds-ellipsis">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
 
-        installButton.addEventListener('click', function () {
-            prompt.prompt();
-        })
-    </script>
+    <!-- App installation guide -->
+    <img id="installation_guide" />
+    <div id="installationProblem" style="width: 90%; background-color: #666666ff; z-index:999;"
+        class="centered error_message hidden">
+        <h2 id='installationProblemMessage'></h2>
+    </div>
 
-    <script>
-        let installed = false;
-        installButton.addEventListener('click', async function () {
-            prompt.prompt();
-            let result = await that.prompt.userChoice;
-            if (result && result.outcome === 'accepted') {
-                installed = true;
-                window.location.href = 'instructions/instructions.html';
-
-            }
-        })
-
-        window.addEventListener('appinstalled', async function (e) {
-            installButton.style.display = "none";
-        });
-    </script>
+    <div id='lottery' class='hidden'></div>
 
 
-    <!-- Service Worker -->
     <script>
         window.addEventListener('load', () => {
             registerSW();
@@ -119,40 +98,10 @@
                 }
             }
         }
+
+        platform.goToUrl('instructions/instructions.html');
+
     </script>
-
-
-    <script>
-        // check if the app is instalabe:
-        let installable = true;
-        if (!('serviceWorker' in navigator)) {
-            installable = false;
-            console.log('app not loading... RELOADING page')
-        }
-    </script>
-    <!-- Loading Screen -->
-    <!-- <div id="app_will_load_soon" class="centered appIsLoading">
-        <h1>...טוען</h1>
-    </div>
-    <div id="loading_animation">
-        <div class="lds-ellipsis">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    </div>
-
-    App installation guide
-    <img id="installation_guide" />
-    <div id="installationProblem" style="width: 90%; background-color: #666666ff; z-index:999;"
-        class="centered error_message hidden">
-        <h2 id='installationProblemMessage'></h2>
-    </div>
-
-
-
-    </script> -->
 
 
 </body>
