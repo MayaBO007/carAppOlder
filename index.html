@@ -1,17 +1,14 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Money Cars</title>
     <meta charset="UTF-8">
     <meta name='viewport' content='initial-scale=1, maximum-scale=1, user-scalable=0'>
+    <link rel="icon" type="image/x-icon" href="/pics/icons/favicon.ico">
     <script src="experiments-platform.js"></script>
-    <link rel="manifest" href="appStuff/manifest.json" />
-
-    <!--<script src="js/NoSleep.js"></script> #I deactivated it for now-->
-
-    <link rel="stylesheet" type="text/css" href="style.css">
-
+    <link rel="manifest" href="manifest.json">
+    <script src='jquery.min.js'></script>
+    <link href='addtohomescreen/style/style.css' rel='stylesheet'>
     <!--
             this is how to create the icon pack and manifest
             https://medium.com/@sam20gh/how-to-add-add-to-home-screen-to-your-website-4b07aee02676
@@ -22,88 +19,79 @@
             this is how to check if app is standalone:
             https://stackoverflow.com/questions/41742390/javascript-to-check-if-pwa-or-mobile-web
          -->
-    <link rel="apple-touch-icon" sizes="57x57" href="icons/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="icons/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="icons/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="icons/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="icons/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="icons/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="icons/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="icons/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="icons/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="icons/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
-    <link rel="manifest" id="manifest-placeholder">
+    <!--
+    pwa stuff-
+    https://javascript.plainenglish.io/creating-a-browser-agnostic-pwa-install-button-41039f312fbe
+    https://www.geeksforgeeks.org/making-a-simple-pwa-under-5-minutes/
+-->
+    <link rel="apple-touch-icon" sizes="57x57" href="pics/icons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="pics/icons/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="pics/icons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="pics/icons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="pics/icons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="pics/icons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="pics/icons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="pics/icons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="pics/icons/apple-icon-167x167.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="pics/icons/apple-icon-180x180.png">
+    <link rel="apple-touch-icon" href="pics/icons/apple-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="pics/icons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="pics/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="pics/icons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="pics/icons/favicon-16x16.png">
     <meta name="msapplication-TileColor" content="#000000">
-    <meta name="msapplication-TileImage" content="icons/ms-icon-144x144.png">
+    <meta name="msapplication-TileImage" content="pics/icons/ms-icon-144x144.png">
     <meta name="theme-color" content="#000000">
 
     <meta name="mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="App">
+    <meta name="apple-mobile-web-app-title" content="Money Cars">
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar" content="#aa7700">
+    <meta name="theme-color" content="black">
 
-
+    <link rel="apple-touch-startup-image" href="pics/Instructions/1.png">
+    <div>
+        <img id="installIns" ; src="pics/Instructions/installIns.png">
+        <img src="pics/Instructions/installation_guide_Android.png" ; id="installAndroid">
+        <img src="pics/Instructions/installation_guide_iOS.png" ; id="installIOS">
+    </div>
+    <div>
+        <button type="button" id="notIphoneYellow"><img src="pics/Instructions/notIphoneYellow.png" width="100%"
+                height="100%" /></button>
+        <button type="button" id="iphoneYellow"><img src="pics/Instructions/IphoneYellow.png" width="100%"
+                height="100%" /></button>
+    </div>
     <script>
-        // check app loading after the page is loaded
-        checkIfAppStartedRunning = setTimeout(() => {
-            console.log('app not loading... RELOADING page')
-            location.reload()
-        }, 7000)
-    </script>
-    <script src="appStuff/app.js"></script>
-</head>
-
-<body id="background" class="bgApp" onload="runApp()">
-    <!-- Loading Screen -->
-    <div id="app_will_load_soon" class="centered appIsLoading">
-        <h1>...טוען</h1>
-    </div>
-    <div id="loading_animation">
-        <div class="lds-ellipsis">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    </div>
-
-    <!-- App installation guide -->
-    <img id="installation_guide" />
-    <div id="installationProblem" style="width: 90%; background-color: #666666ff; z-index:999;"
-        class="centered error_message hidden">
-        <h2 id='installationProblemMessage'></h2>
-    </div>
-
-    <div id='lottery' class='hidden'></div>
-
-
-    <script>
-        window.addEventListener('load', () => {
-            registerSW();
+        document.getElementById("notIphoneYellow").addEventListener("click", function () {
+            document.getElementById("installAndroid").style.display = "inline";
+            document.getElementById("notIphoneYellow").style.display = "none";
+            document.getElementById("iphoneYellow").style.display = "none";
         });
-
-        // Register the Service Worker
-        async function registerSW() {
-            if ('serviceWorker' in navigator) {
-                try {
-                    await navigator
-                        .serviceWorker
-                        .register('serviceworker.js');
-                }
-                catch (e) {
-                    console.log('SW registration failed');
-                }
-            }
-        }
-
-        platform.goToUrl('instructions/instructions.html');
-
+        document.getElementById("iphoneYellow").addEventListener("click", function () {
+            document.getElementById("installIOS").style.display = "inline";
+            document.getElementById("notIphoneYellow").style.display = "none";
+            document.getElementById("iphoneYellow").style.display = "none";
+        });
     </script>
-
-
-</body>
-
-</html>
+    <script src="addtohomescreen/src/addtohomescreen.js"></script>
+    <script>
+        if (
+            (("standalone" in window.navigator) && !window.navigator.standalone) // for ios
+            ||
+            (!window.matchMedia('(disply-mode: standalone)').matches) //android
+        ) {
+            addToHomescreen()
+        }
+        // // check app loading after the page is loaded
+        // checkIfAppStartedRunning = setTimeout(() => {
+        //     console.log('app not loading... RELOADING page')
+        //     location.reload()
+        // }, 7000)
+    </script>
+</head>
+<body>
